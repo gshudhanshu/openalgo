@@ -54,6 +54,7 @@ For complete deployment instructions, troubleshooting, and configuration options
 - **CSRF errors?** Ensure `HOST_SERVER` matches your domain
 - **WebSocket issues?** Check port 8765 exposure and CORS settings
 - **Port issues?** Ensure FLASK_PORT matches exposed port (default: 5000)
+- **Styling broken?** Run `npm run build:css` before deployment
 
 ## 📊 Health Check
 
