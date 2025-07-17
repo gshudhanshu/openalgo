@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
 
-    # container_name: openalgo-web
+    container_name: openalgo-web
     
     # Expose ports for Coolify to map
     # expose:
