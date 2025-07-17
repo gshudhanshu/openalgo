@@ -8,14 +8,14 @@ services:
     container_name: openalgo-web
     
     # Expose ports for Coolify to map
-    expose:
-      - "5000"
-      - "8765"
+    # expose:
+    #   - "5000"
+    #   - "8765"
     
     # Alternative: Direct port mapping (comment out if using expose only)
-    # ports:
-    #   - "5000:5000"
-    #   - "8765:8765"
+    ports:
+      - "5000:5000"
+      - "8765:8765"
     
     # Use persistent volumes that Coolify can manage
     volumes:
@@ -44,7 +44,7 @@ services:
 
     # Health check for Coolify monitoring
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5000/health"] 
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
       interval: 30s
       timeout: 10s
       retries: 3
