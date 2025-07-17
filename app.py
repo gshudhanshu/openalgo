@@ -185,6 +185,47 @@ def create_app():
             session.clear()
             # Don't redirect here, let individual routes handle it
     
+    # Health check endpoint for Coolify and monitoring
+    @app.route('/health')
+    def health_check():
+        """Health check endpoint for Coolify and container monitoring"""
+        from flask import jsonify
+        import sys
+        import time
+        
+        try:
+            # Basic health checks
+            health_status = {
+                'status': 'healthy',
+                'timestamp': int(time.time()),
+                'version': get_version(),
+                'python_version': sys.version,
+                'uptime': 'running'
+            }
+            
+            # Check if database connection is working (basic check)
+            try:
+                from database.auth_db import get_db_connection
+                db = get_db_connection()
+                cursor = db.cursor()
+                cursor.execute("SELECT 1")
+                cursor.close()
+                db.close()
+                health_status['database'] = 'connected'
+            except Exception as db_e:
+                logger.warning(f"Database health check failed: {db_e}")
+                health_status['database'] = 'warning'
+                
+            return jsonify(health_status), 200
+            
+        except Exception as e:
+            logger.error(f"Health check failed: {e}")
+            return jsonify({
+                'status': 'unhealthy',
+                'error': str(e),
+                'timestamp': int(time.time())
+            }), 500
+
     @app.errorhandler(404)
     def not_found_error(error):
         return render_template('404.html'), 404
