@@ -176,6 +176,7 @@ The application includes a health check endpoint at `/health` that Coolify uses 
    - Check Docker build logs for CSS compilation errors
    - Ensure Node.js dependencies are installed during build
 
+
 ### Log Analysis
 
 Monitor these log sources in Coolify:
