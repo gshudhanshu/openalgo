@@ -36,7 +36,7 @@ Configure the following environment variables in Coolify:
 # Flask Configuration
 FLASK_ENV=production
 FLASK_DEBUG=0
-FLASK_PORT=5000
+FLASK_PORT=5050
 WEBSOCKET_PORT=8765
 
 # Security (REQUIRED)
@@ -118,14 +118,14 @@ Coolify automatically handles the following persistent volumes:
 
 Coolify will automatically map the exposed ports:
 
-- **5000**: Main Flask application
+- **5050**: Main Flask application
 - **8765**: WebSocket server
 
 ### 7. Health Monitoring
 
 The application includes a health check endpoint at `/health` that Coolify uses for monitoring:
 
-- **Endpoint**: `http://localhost:5000/health`
+- **Endpoint**: `http://localhost:5050/health`
 - **Interval**: Every 30 seconds
 - **Timeout**: 10 seconds
 - **Retries**: 3 attempts

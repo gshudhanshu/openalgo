@@ -30,6 +30,7 @@ Quick guide for deploying OpenAlgo on Coolify.
 **Optional:**
 - `BROKER_NAME`, `BROKER_API_KEY`, `BROKER_API_SECRET` - Broker configuration
 - `FLASK_ENV=production` - Environment mode
+- `FLASK_PORT=5050` - Application port (default: 5050)
 - `LOG_LEVEL=INFO` - Logging level
 
 ## 🔧 Features
@@ -52,6 +53,7 @@ For complete deployment instructions, troubleshooting, and configuration options
 - **Database issues?** Verify volume mounting and permissions
 - **CSRF errors?** Ensure `HOST_SERVER` matches your domain
 - **WebSocket issues?** Check port 8765 exposure and CORS settings
+- **Port issues?** Ensure FLASK_PORT matches exposed port (default: 5050)
 
 ## 📊 Health Check
 
