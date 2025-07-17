@@ -17,33 +17,18 @@ def get_csp_config():
     if not csp_enabled:
         return None
     
-    # Check if we're in a deployment environment (like Coolify)
-    # and use more permissive defaults
-    host_server = os.getenv('HOST_SERVER', '')
-    is_deployment = 'sslip.io' in host_server or 'herokuapp.com' in host_server or 'cloudflare' in host_server
-    
     # Default source directive
     default_src = os.getenv('CSP_DEFAULT_SRC', "'self'")
     if default_src:
         csp_config['default-src'] = default_src
     
-    # Script source directive - more permissive for deployment
-    if is_deployment:
-        default_script_src = "'self' 'unsafe-inline' 'unsafe-eval' https://cdn.socket.io https://cdnjs.cloudflare.com"
-    else:
-        default_script_src = "'self' https://cdn.socket.io"
-    
-    script_src = os.getenv('CSP_SCRIPT_SRC', default_script_src)
+    # Script source directive
+    script_src = os.getenv('CSP_SCRIPT_SRC', "'self' https://cdn.socket.io")
     if script_src:
         csp_config['script-src'] = script_src
     
-    # Style source directive - more permissive for deployment
-    if is_deployment:
-        default_style_src = "'self' 'unsafe-inline' https: data:"
-    else:
-        default_style_src = "'self' 'unsafe-inline'"
-        
-    style_src = os.getenv('CSP_STYLE_SRC', default_style_src)
+    # Style source directive
+    style_src = os.getenv('CSP_STYLE_SRC', "'self' 'unsafe-inline'")
     if style_src:
         csp_config['style-src'] = style_src
     
