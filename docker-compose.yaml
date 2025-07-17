@@ -9,7 +9,7 @@ services:
     
     # Expose ports for Coolify to map
     expose:
-      - "5050"
+      - "5000"
       - "8765"
     
     # Use persistent volumes that Coolify can manage
