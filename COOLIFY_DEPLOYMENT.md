@@ -169,6 +169,13 @@ The application includes a health check endpoint at `/health` that Coolify uses 
    - Check HOST_SERVER matches your domain
    - Verify cookie security settings
 
+5. **CSS/Styling Issues (DaisyUI/Tailwind)**
+   - Application loads but looks unstyled or broken
+   - Run `npm run build:css` locally before deployment
+   - Verify static/css/main.css file exists and is large (>100KB)
+   - Check Docker build logs for CSS compilation errors
+   - Ensure Node.js dependencies are installed during build
+
 ### Log Analysis
 
 Monitor these log sources in Coolify:
