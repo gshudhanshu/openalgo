@@ -7,18 +7,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
-# Copy package.json and install Node.js dependencies
-COPY package*.json ./
-RUN npm install
+# # Copy package.json and install Node.js dependencies
+# COPY package*.json ./
+# RUN npm install
 
-# Copy source files needed for CSS build
-COPY tailwind.config.js ./
-COPY postcss.config.js ./
-COPY src/ ./src/
-COPY templates/ ./templates/
+# # Copy source files needed for CSS build
+# COPY tailwind.config.js ./
+# COPY postcss.config.js ./
+# COPY src/ ./src/
+# COPY templates/ ./templates/
 
-# Build CSS using PostCSS/Tailwind
-RUN npm run build:css
+# # Build CSS using PostCSS/Tailwind
+# RUN npm run build:css
 
 # Copy Python dependencies and build
 COPY pyproject.toml .
