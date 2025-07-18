@@ -206,8 +206,9 @@ def create_app():
             # Check if database connection is working (basic check)
             try:
                 from database.auth_db import engine
+                from sqlalchemy import text
                 with engine.connect() as conn:
-                    result = conn.execute("SELECT 1")
+                    result = conn.execute(text("SELECT 1"))
                     result.fetchone()
                 health_status['database'] = 'connected'
             except Exception as db_e:
