@@ -205,12 +205,10 @@ def create_app():
             
             # Check if database connection is working (basic check)
             try:
-                from database.auth_db import get_db_connection
-                db = get_db_connection()
-                cursor = db.cursor()
-                cursor.execute("SELECT 1")
-                cursor.close()
-                db.close()
+                from database.auth_db import engine
+                with engine.connect() as conn:
+                    result = conn.execute("SELECT 1")
+                    result.fetchone()
                 health_status['database'] = 'connected'
             except Exception as db_e:
                 logger.warning(f"Database health check failed: {db_e}")
