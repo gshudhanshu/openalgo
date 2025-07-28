@@ -2270,6 +2270,18 @@ input.tab:checked + .tab-content,
   .btn-secondary {
     --btn-color: var(--fallback-s);
   }
+  .btn-accent {
+    --btn-color: var(--fallback-a);
+  }
+  .btn-info {
+    --btn-color: var(--fallback-in);
+  }
+  .btn-success {
+    --btn-color: var(--fallback-su);
+  }
+  .btn-warning {
+    --btn-color: var(--fallback-wa);
+  }
   .btn-error {
     --btn-color: var(--fallback-er);
   }
@@ -2336,6 +2348,18 @@ input.tab:checked + .tab-content,
   .btn-secondary {
     --btn-color: var(--s);
   }
+  .btn-accent {
+    --btn-color: var(--a);
+  }
+  .btn-info {
+    --btn-color: var(--in);
+  }
+  .btn-success {
+    --btn-color: var(--su);
+  }
+  .btn-warning {
+    --btn-color: var(--wa);
+  }
   .btn-error {
     --btn-color: var(--er);
   }
@@ -2344,6 +2368,26 @@ input.tab:checked + .tab-content,
   --tw-text-opacity: 1;
   color: var(--fallback-sc,oklch(var(--sc)/var(--tw-text-opacity)));
   outline-color: var(--fallback-s,oklch(var(--s)/1));
+}
+.btn-accent {
+  --tw-text-opacity: 1;
+  color: var(--fallback-ac,oklch(var(--ac)/var(--tw-text-opacity)));
+  outline-color: var(--fallback-a,oklch(var(--a)/1));
+}
+.btn-info {
+  --tw-text-opacity: 1;
+  color: var(--fallback-inc,oklch(var(--inc)/var(--tw-text-opacity)));
+  outline-color: var(--fallback-in,oklch(var(--in)/1));
+}
+.btn-success {
+  --tw-text-opacity: 1;
+  color: var(--fallback-suc,oklch(var(--suc)/var(--tw-text-opacity)));
+  outline-color: var(--fallback-su,oklch(var(--su)/1));
+}
+.btn-warning {
+  --tw-text-opacity: 1;
+  color: var(--fallback-wac,oklch(var(--wac)/var(--tw-text-opacity)));
+  outline-color: var(--fallback-wa,oklch(var(--wa)/1));
 }
 .btn-error {
   --tw-text-opacity: 1;
@@ -5281,6 +5325,9 @@ code[class*="language-"] {
   --tw-text-opacity: 1;
   color: var(--fallback-bc,oklch(var(--bc)/var(--tw-text-opacity, 1)));
 }
+.text-base-content\/50 {
+  color: var(--fallback-bc,oklch(var(--bc)/0.5));
+}
 .text-base-content\/60 {
   color: var(--fallback-bc,oklch(var(--bc)/0.6));
 }
@@ -5629,6 +5676,9 @@ code[class*="language-"] {
   .md\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+  .md\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
   .md\:flex-row {
     flex-direction: row;
   }
@@ -5664,6 +5714,9 @@ code[class*="language-"] {
   }
   .lg\:grid-cols-5 {
     grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  .lg\:grid-cols-6 {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
   .lg\:flex-row {
     flex-direction: row;
