@@ -316,7 +316,7 @@ def htf_crossover_strategy():
                 print(f"Long Signal: {long_signal}")
                 print(f"Short Signal: {short_signal}")
                 
-                # Entry logic
+                # Entry logic (only if no existing position)
                 if long_signal and symbol_name not in positions:
                     log_with_time(f"🟢 LONG SIGNAL for {symbol_name} - Placing Bull Call Spread")
                     atm_strike = get_atm_strike(symbol_config)
@@ -355,22 +355,39 @@ def htf_crossover_strategy():
                             print(f"✅ Position entered at {entry_time.strftime('%H:%M:%S')} - "
                                   f"Entry: ₹{current_price}, Stop: ₹{current_price * (1 + stop_loss_perc / 100):.2f}")
                 
-                # Stop loss logic for existing positions
+                # Exit logic for existing positions
                 if symbol_name in positions:
                     position = positions[symbol_name]
-                    stop_hit = False
+                    exit_hit = False
+                    exit_reason = ""
                     
-                    if position['type'] == 'bull_call' and current_price <= position['stop_loss']:
+                    # Reversal exit logic - exit on opposite signal
+                    if position['type'] == 'bull_call' and short_signal:
+                        log_with_time(f"🔄 REVERSAL EXIT for {symbol_name} Bull Call Spread - Short signal detected")
+                        close_bull_call_spread(symbol_name, symbol_config, position['atm_strike'])
+                        exit_hit = True
+                        exit_reason = "Signal Reversal"
+                        
+                    elif position['type'] == 'bear_put' and long_signal:
+                        log_with_time(f"🔄 REVERSAL EXIT for {symbol_name} Bear Put Spread - Long signal detected")
+                        close_bear_put_spread(symbol_name, symbol_config, position['atm_strike'])
+                        exit_hit = True
+                        exit_reason = "Signal Reversal"
+                    
+                    # Stop loss logic
+                    elif position['type'] == 'bull_call' and current_price <= position['stop_loss']:
                         log_with_time(f"🛑 STOP LOSS HIT for {symbol_name} Bull Call Spread")
                         close_bull_call_spread(symbol_name, symbol_config, position['atm_strike'])
-                        stop_hit = True
+                        exit_hit = True
+                        exit_reason = "Stop Loss"
                         
                     elif position['type'] == 'bear_put' and current_price >= position['stop_loss']:
                         log_with_time(f"🛑 STOP LOSS HIT for {symbol_name} Bear Put Spread")
                         close_bear_put_spread(symbol_name, symbol_config, position['atm_strike'])
-                        stop_hit = True
+                        exit_hit = True
+                        exit_reason = "Stop Loss"
                     
-                    if stop_hit:
+                    if exit_hit:
                         # Calculate position hold time
                         time_held = datetime.now() - position['entry_time']
                         hours = int(time_held.total_seconds() // 3600)
@@ -379,7 +396,7 @@ def htf_crossover_strategy():
                         
                         del positions[symbol_name]
                         print(f"🔄 Position closed for {symbol_name} - "
-                              f"Held for {time_str} (Entry: {position['entry_time'].strftime('%H:%M:%S')})")
+                              f"Held for {time_str} (Entry: {position['entry_time'].strftime('%H:%M:%S')}) - Reason: {exit_reason}")
                     else:
                         # Calculate time since entry
                         time_held = datetime.now() - position['entry_time']
